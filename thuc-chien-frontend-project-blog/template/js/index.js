@@ -20,6 +20,8 @@ const elArticlesSlider = document.getElementById(
     'articlesSlider'
 );
 
+// const publishDate = dayjs(item.publish_date).fromNow();
+
 // RENDER MENUS
 API.get('categories_news').then((response) => {
     const data = response.data;
@@ -29,9 +31,9 @@ API.get('categories_news').then((response) => {
     let htmlMenuOther = '';
     categories.forEach((item, index) => {
         if (index < 3) {
-            htmlMenu += `<li><a href="#">${item.name}</a></li>`;
+            htmlMenu += `<li><a href="category.html?id=${item.id}">${item.name}</a></li>`;
         } else {
-            htmlMenuOther += `<li><a href="#">${item.name}</a></li>`;
+            htmlMenuOther += `<li><a href="category.html?id=${item.id}">${item.name}</a></li>`;
         }
     });
     elMainMenu.innerHTML =
@@ -269,6 +271,8 @@ function renderArticleNewLargeItem(item) {
 }
 
 function renderArticleNewItem(item) {
+    const publishDate = dayjs(item.publish_date).fromNow();
+
     return /*html*/ `
      <div class="col-lg-6">
         <div class="post-entry-1">
@@ -278,7 +282,7 @@ function renderArticleNewItem(item) {
           <div class="post-meta">
             <span class="date">${item.category.name}</span>
             <span class="mx-1">&bullet;</span>
-            <span>${item.publish_date}</span>
+            <span>${publishDate}</span>
           </div>
           <h2><a href="single-post.html">${item.title}</a></h2>
         </div>
